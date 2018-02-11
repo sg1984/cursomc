@@ -1,7 +1,5 @@
 package com.sandrogallina.cursomc.resources;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sandrogallina.cursomc.domain.Categoria;
 import com.sandrogallina.cursomc.services.CategoriaService;
-
-import javassist.tools.rmi.ObjectNotFoundException;
 
 @RestController
 @RequestMapping(value="/categorias")
