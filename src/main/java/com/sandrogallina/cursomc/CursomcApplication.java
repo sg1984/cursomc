@@ -13,6 +13,7 @@ import com.sandrogallina.cursomc.domain.Cidade;
 import com.sandrogallina.cursomc.domain.Cliente;
 import com.sandrogallina.cursomc.domain.Endereco;
 import com.sandrogallina.cursomc.domain.Estado;
+import com.sandrogallina.cursomc.domain.ItemPedido;
 import com.sandrogallina.cursomc.domain.Pagamento;
 import com.sandrogallina.cursomc.domain.PagamentoComBoleto;
 import com.sandrogallina.cursomc.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.sandrogallina.cursomc.repositories.CidadeRepository;
 import com.sandrogallina.cursomc.repositories.ClienteRepository;
 import com.sandrogallina.cursomc.repositories.EnderecoRepository;
 import com.sandrogallina.cursomc.repositories.EstadoRepository;
+import com.sandrogallina.cursomc.repositories.ItemPedidoRepository;
 import com.sandrogallina.cursomc.repositories.PagamentoRepository;
 import com.sandrogallina.cursomc.repositories.PedidoRepository;
 import com.sandrogallina.cursomc.repositories.ProdutoRepository;
@@ -48,6 +50,8 @@ public class CursomcApplication implements CommandLineRunner{
 	private PagamentoRepository pagamentoRepository;
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -111,5 +115,19 @@ public class CursomcApplication implements CommandLineRunner{
 		
 		pedidoRepository.save(Arrays.asList(ped1, ped2));
 		pagamentoRepository.save(Arrays.asList(pagto1, pagto2));		
+		
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.save(Arrays.asList(ip1, ip2, ip3));			
 	}
 }
